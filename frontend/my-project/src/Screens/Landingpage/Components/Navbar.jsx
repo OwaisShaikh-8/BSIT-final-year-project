@@ -24,7 +24,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className={`navbar bg-white shadow-sm md:px-20 fixed z-50 transition duration-400 ${scroll ? 'bg-[#F0F0F0] shadow-md' : 'bg-white'}`}>
+      <div className={`navbar bg-white shadow-sm md:px-20 fixed z-50 transition duration-300 ${scroll ? 'bg-[#d1d0d0] shadow-md' : 'bg-white'}`}>
         <div className='navbar-start'>
           <img src={logo} alt="" className='h-10 w-auto' />
         </div>
@@ -42,7 +42,7 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content bg-base-100 z-50 mt-3 w-screen right-0 p-4 shadow absolute flex flex-col justify-center items-center">
 
               <li className="w-full">
-                <button className="bg-[#3A3A3A] w-full h-10 text-sm font-medium text-white hover:bg-[#FFA31A] transition-all duration-400 rounded-none">
+                <button className="bg-[#3A3A3A] w-full h-10 text-sm font-medium text-white hover:bg-[#FFA31A] transition-all duration-400 rounded-none" onClick={() => document.getElementById('my_modal_1').showModal()}>
                   Login
                 </button>
               </li>

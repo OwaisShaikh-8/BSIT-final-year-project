@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import img from '../Components/Banner.jpg';
 import img2 from '../Components/Banner2.jpg';
 import img3 from '../Components/Banner3.jpg';
-import img4 from '../Components/management.jpg';
+// import img4 from '../Components/management.jpg';
 import Cardlist from './Cardlist';
 function Banner() {
     const [load, setload] = useState(false)

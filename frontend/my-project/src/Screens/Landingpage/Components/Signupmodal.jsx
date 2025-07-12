@@ -1,7 +1,87 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-
+import { useForm } from 'react-hook-form';
 const Signupmodal = () => {
   const [role, setRole] = useState('user'); // 'user' or 'vendor'
+    const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+    const password = watch("password", "")
+    // const confirmPassword = watch("confirmPassword", "")
+
+    const validateConfirmPassword = (value) => {
+      return value === password || "password do not match"
+    }
+    
+  
+    const onSubmit = (data) => {
+      const { fullname, email, password, confirmPassword, companyName } = data;
+
+const userinfo = {
+  fullname,
+  email,
+  password,
+  confirmPassword,
+  ...(role === 'vendor' && { companyName }), //... is used to spread (copy) properties from one object into another.
+
+};
+
+      const endpoint = (role === 'vendor' ? 'http://localhost:4002/user/vendorsignin' : 'http://localhost:4002/user/customersignin')
+
+      axios.post(endpoint,userinfo)
+      .then((response) => {
+          if (response.data) {
+            alert(response.data.message)
+          }        
+      }
+      )
+      .catch((error) => {
+        if(error.response){
+          alert(error.response.data.error)
+        }
+      }
+      )
+    
+
+      // if(role === 'vendor'){
+      //   axios.post("http://localhost:4002/user/vendorsignin", userinfo)
+      //   .then((response) =>{
+      //     if(response.data){
+      //       alert(response.data.message)
+      //     }
+      //   } 
+      //   )
+      
+      //   .catch((error) => {
+      //     if(error.response){
+      //       alert(error.response.data.error)
+      //     }
+      //   }
+      //   )
+        
+      // }
+      // else{
+      //   axios.post("http://localhost:4002/user/customersignin", userinfo)
+      //   .then((response) =>{
+      //     if(response.data){
+      //       alert(response.data.message)
+      //     }
+      //   } 
+      //   )
+      
+      //   .catch((error) => {
+      //     if(error.response){
+      //       alert(error.response.data.error)
+      //     }
+      //   }
+      //   )
+        
+      // }
+    }
 
   return (
     <dialog id="my_modal_2" className="modal  px-5 md:px-0">
@@ -42,34 +122,50 @@ const Signupmodal = () => {
           </div>
 
           {/* Shared Signup Form */}
-          <form className="flex flex-col gap-4">
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
               placeholder="Full Name"
               className="input input-bordered w-full bg-gray-100 text-black"
-              required
-            />
+              {...register("fullname", { required: true })}
+              />
+             {errors.fullName && <span>This field is required</span>}
             <input
               type="email"
               placeholder="Email"
               className="input input-bordered w-full bg-gray-100 text-black"
-              required
-            />
+              {...register("email", { required: true })}
+              />
+              {errors.email && <span>This field is required</span>}
             <input
               type="password"
               placeholder="Password"
               className="input input-bordered w-full bg-gray-100 text-black"
-              required
-            />
+              {...register("password", { required: true })}
+              />
+              {errors.password && <span>This field is required</span>}
+            
+            <input
+              type="password"
+              placeholder="confirmPassword"
+              className="input input-bordered w-full bg-gray-100 text-black"
+              {...register("confirmPassword", { required: true , validate: validateConfirmPassword})}
+              />
+              {errors.confirmPassword && <span>
+                {errors.confirmPassword.message}
+                </span>}
 
             {/* Vendor Only Field */}
             {role === 'vendor' && (
+              <>
               <input
                 type="text"
                 placeholder="Business Name"
                 className="input input-bordered w-full bg-gray-100 text-black"
-                required
-              />
+                {...register("companyName", { required: role === 'vendor' })}
+                />
+                {errors.companyName && <span>companyName is required</span>}
+                </>
             )}
 
             <button

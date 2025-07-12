@@ -5,15 +5,15 @@ import Afterlogin from './Screens/Afterlogin/Afterlogin'
 
 function App() {
   return (
-    <>
-    <Afterlogin/>
-    </>
-    // <div>
+    // <>
+    // <Afterlogin/>
+    // </>
+    <div>
 
-    // <Routes>
-    //   <Route path='/' element={<Landingpage/>}/>
-    // </Routes>
-    // </div>
+    <Routes>
+      <Route path='/' element={<Landingpage/>}/>
+    </Routes>
+    </div>
   )
 }
 
