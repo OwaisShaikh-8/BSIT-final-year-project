@@ -1,12 +1,14 @@
 import React from 'react'
 import Navbar from './Navbar'
 
-const Afterlogin = () => {
+const Afterlogincustomer = () => {
   return (
     <>
     <Navbar/>
+    div
+
     </>
   )
 }
 
-export default Afterlogin
+export default Afterlogincustomer

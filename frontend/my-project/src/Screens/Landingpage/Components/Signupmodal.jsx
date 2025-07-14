@@ -1,8 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useAuth } from '../../../context/Authprovider.jsx';
 const Signupmodal = () => {
   const [role, setRole] = useState('user'); // 'user' or 'vendor'
+  const [AuthUser,setAuthUser] = useAuth()
     const {
     register,
     handleSubmit,
@@ -18,7 +20,7 @@ const Signupmodal = () => {
     }
     
   
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
       const { fullname, email, password, confirmPassword, companyName } = data;
 
 const userinfo = {
@@ -30,13 +32,17 @@ const userinfo = {
 
 };
 
-      const endpoint = (role === 'vendor' ? 'http://localhost:4002/user/vendorsignin' : 'http://localhost:4002/user/customersignin')
+        const endpoint = (role === 'vendor' ? 'http://localhost:4002/user/vendorsignin' : 'http://localhost:4002/user/customersignin')
 
-      axios.post(endpoint,userinfo)
+      await axios.post(endpoint,userinfo)
       .then((response) => {
           if (response.data) {
             alert(response.data.message)
           }        
+          localStorage.setItem("instantmeal", JSON.stringify(response.data))
+          setAuthUser(response.data);
+          console.log(AuthUser)
+     
       }
       )
       .catch((error) => {

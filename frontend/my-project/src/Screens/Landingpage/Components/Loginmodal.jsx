@@ -1,26 +1,31 @@
 import React from 'react';
 import axios from 'axios'
+import { useAuth } from '../../../context/Authprovider.jsx';
 import { useForm } from "react-hook-form"
 const LoginModal = () => {
+  const [AuthUser,setAuthUser] = useAuth()
  const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => {
-    const userinfo = {
+  const onSubmit = async (data) => {
+    const userinfo = { 
       email: data.email,
       password : data.password
     }
-    console.log(userinfo)
+    // console.log(userinfo)
 
     axios.post("http://localhost:4002/user/login", userinfo) // this is to post credential to backend login api
     .then((response) => {
       if(response.data){
         alert(response.data.message)
-        }
-        localStorage.setItem("instantMeal", JSON.stringify(response.data))
+      }
+      localStorage.setItem("instantMeal", JSON.stringify(response.data))
+      setAuthUser(response.data)
+      
+  
     }
   )
   .catch((error) =>{
@@ -28,7 +33,7 @@ const LoginModal = () => {
       alert("Error : " + error.response.data.error)
     }
   })
-
+  
   }
   return (
     <dialog id="my_modal_1" className="modal px-5 md:px-0" >

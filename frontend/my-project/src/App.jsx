@@ -1,7 +1,6 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
 import Landingpage from './Screens/Landingpage/Landingpage'
-import Afterlogin from './Screens/Afterlogin/Afterlogin'
 
 function App() {
   return (
@@ -10,8 +9,13 @@ function App() {
     // </>
     <div>
 
-    <Routes>
+    {/* <Routes>
       <Route path='/' element={<Landingpage/>}/>
+      
+    </Routes> */}
+    <Routes>
+      <Route path='/' element={<Afterlogincustomer/>}/>
+      
     </Routes>
     </div>
   )
