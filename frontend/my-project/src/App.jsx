@@ -1,6 +1,7 @@
 import React from 'react'
 import {Routes, Route} from 'react-router-dom'
 import Landingpage from './Screens/Landingpage/Landingpage'
+import Afterlogincustomer from './Screens/Afterlogin/Afterlogincustomer/Afterlogincustomer'
 
 function App() {
   return (
